@@ -79,8 +79,38 @@ function loadModels() {
   // load the first model. Each model is loaded asynchronously,
   // so don't make any assumption about which one will finish loading first
 
-  const treePosition = new THREE.Vector3(0, -8, 0);
-  loader.load( 'models/tree.glb', gltf => onLoad(gltf, treePosition), onProgress(), onError());
+  //const treePosition = new THREE.Vector3(0, -8, 0);
+  //loader.load( 'models/tree.glb', gltf => onLoad(gltf, treePosition), onProgress(), onError());
+
+  var root = new THREE.CylinderGeometry(0.5, 0.5, 11, 9);
+  var branchR = new THREE.CylinderGeometry(0.3, 0.3, 5, 9);
+  var branchL = new THREE.CylinderGeometry(0.3, 0.3, 5, 9);
+
+  branchR.rotateZ(45)
+  branchL.rotateZ(-45)
+
+  var singleGeometry = new THREE.Geometry();
+
+  var rootMesh = new THREE.Mesh(root);
+  var branchRMesh = new THREE.Mesh(branchR);
+  var branchLMesh = new THREE.Mesh(branchL)
+
+  branchRMesh.position.set(-2, 6.5, 0)
+  branchLMesh.position.set(2, 6.5, 0)
+
+  rootMesh.updateMatrix();
+  singleGeometry.merge(rootMesh.geometry, rootMesh.matrix);
+
+  branchRMesh.updateMatrix();
+  singleGeometry.merge(branchRMesh.geometry, branchRMesh.matrix);
+
+  branchLMesh.updateMatrix();
+  singleGeometry.merge(branchLMesh.geometry, branchLMesh.matrix)
+
+  var material = new THREE.MeshPhongMaterial({color: 0x43231C});
+  var mesh = new THREE.Mesh(singleGeometry, material);
+  scene.add(mesh);
+
 
 }
 
