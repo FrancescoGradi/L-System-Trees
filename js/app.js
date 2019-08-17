@@ -82,35 +82,35 @@ function loadModels() {
   //const treePosition = new THREE.Vector3(0, -8, 0);
   //loader.load( 'models/tree.glb', gltf => onLoad(gltf, treePosition), onProgress(), onError());
 
-  var root = new THREE.CylinderGeometry(0.5, 0.5, 11, 9);
-  var branchR = new THREE.CylinderGeometry(0.3, 0.3, 5, 9);
-  var branchL = new THREE.CylinderGeometry(0.3, 0.3, 5, 9);
-
-  branchR.rotateZ(45)
-  branchL.rotateZ(-45)
-
+  var root = new THREE.CylinderGeometry(0.5, 0.8, 11, 9);
   var singleGeometry = new THREE.Geometry();
 
   var rootMesh = new THREE.Mesh(root);
-  var branchRMesh = new THREE.Mesh(branchR);
-  var branchLMesh = new THREE.Mesh(branchL)
-
-  branchRMesh.position.set(-2, 6.5, 0)
-  branchLMesh.position.set(2, 6.5, 0)
 
   rootMesh.updateMatrix();
   singleGeometry.merge(rootMesh.geometry, rootMesh.matrix);
 
-  branchRMesh.updateMatrix();
-  singleGeometry.merge(branchRMesh.geometry, branchRMesh.matrix);
-
-  branchLMesh.updateMatrix();
-  singleGeometry.merge(branchLMesh.geometry, branchLMesh.matrix)
+  branchInsert(singleGeometry, 2, 6.5, 0, -45, 0.4, 0.5, 5);
+  branchInsert(singleGeometry, -2, 6.5, 0, 45, 0.4, 0.5, 5);
 
   var material = new THREE.MeshPhongMaterial({color: 0x43231C});
   var mesh = new THREE.Mesh(singleGeometry, material);
+
   scene.add(mesh);
 
+}
+
+function branchInsert(totalGeometry, x, y, z, theta, radiusTop, radiusBottom, height) {
+
+  var branch = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, 9);
+
+  branch.rotateZ(theta);
+  var branchMesh = new THREE.Mesh(branch);
+
+  branchMesh.position.set(x, y, z);
+
+  branchMesh.updateMatrix();
+  totalGeometry.merge(branchMesh.geometry, branchMesh.matrix);
 
 }
 
