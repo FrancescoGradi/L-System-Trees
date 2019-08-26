@@ -1,27 +1,19 @@
-body {
-  margin: 0px;
-  overflow: hidden;
+h3 {
   color: black;
-  text-align: center;
-}
-
-a {
-  color: white;
-}
-a:hover{
-  color: purple;
 }
 
 #scene-container {
   position: absolute;
   float: left;
-  width: 75%;
+  width: 100%;
   height: 100%;
 }
 
 .gui-container {
   position: absolute;
+  background-color: transparent;
   top: 1em;
   right: 1em;
-  max-width: 25%;
+  width: 14em;
+  z-index: 1;
 }

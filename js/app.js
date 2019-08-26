@@ -33,7 +33,7 @@ function init() {
 function createCamera() {
 
   camera = new THREE.PerspectiveCamera( 35, container.clientWidth / container.clientHeight, 1, 100 );
-  camera.position.set( -35, 0, 0 );
+  camera.position.set( -85, 0, 0 );
 
 }
 
@@ -68,43 +68,20 @@ function loadModels() {
     scene.add( model );
 
   };
-
   // the loader will report the loading progress to this function
   const onProgress = () => {};
 
   // the loader will send any error messages to this function, and we'll log
   // them to to console
   const onError = ( errorMessage ) => { console.log( errorMessage ); };
-
-  // load the first model. Each model is loaded asynchronously,
-  // so don't make any assumption about which one will finish loading first
-
-  //const treePosition = new THREE.Vector3(0, -8, 0);
-  //loader.load( 'models/tree.glb', gltf => onLoad(gltf, treePosition), onProgress(), onError());
-
-  var root = new THREE.CylinderGeometry(0.5, 0.8, 11, 9);
-  var singleGeometry = new THREE.Geometry();
-
-  var rootMesh = new THREE.Mesh(root);
-
-  rootMesh.updateMatrix();
-  singleGeometry.merge(rootMesh.geometry, rootMesh.matrix);
-
-  branchInsert(singleGeometry, 2, 6.5, 0, -45, 0.4, 0.5, 5);
-  branchInsert(singleGeometry, -2, 6.5, 0, 45, 0.4, 0.5, 5);
-
-  var material = new THREE.MeshPhongMaterial({color: 0x43231C});
-  var mesh = new THREE.Mesh(singleGeometry, material);
-
-  scene.add(mesh);
-
 }
+
 
 function branchInsert(totalGeometry, x, y, z, theta, radiusTop, radiusBottom, height) {
 
   var branch = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, 9);
 
-  branch.rotateZ(theta);
+  branch.rotateX(toRadians(theta));
   var branchMesh = new THREE.Mesh(branch);
 
   branchMesh.position.set(x, y, z);
