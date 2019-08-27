@@ -13,7 +13,7 @@ function init() {
   container = document.querySelector( '#scene-container' );
 
   scene = new THREE.Scene();
-  scene.background = new THREE.Color( 0x8A8A8A );
+  scene.background = new THREE.Color( 0x000000 );
 
   createCamera();
   createControls();
