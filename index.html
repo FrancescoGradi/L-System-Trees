@@ -76,7 +76,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text">Iterations</span>
 									</div>
-									<input id="iterations" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+									<input id="iterations" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="1" min="0">
 								</div>
 							</div>
 						</div>
@@ -93,21 +93,21 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text">Angle</span>
 									</div>
-									<input id="degrees" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="25">
+									<input id="degrees" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" min="0" max="360" value="25">
 								</div>
 
 								<div class="input-group input-group-sm mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text">Branch Lenght</span>
 									</div>
-									<input id="length" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="15">
+									<input id="length" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" min="0" value="15">
 								</div>
 
 								<div class="input-group input-group-sm mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text">Branch Radius</span>
 									</div>
-									<input id="radius" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="1">
+									<input id="radius" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" min="0" value="0.5" step=".05">
 								</div>
 							</div>
 						</div>
@@ -120,8 +120,6 @@
 				</div>
 				</div>
 			</div>
-
-		</div>
 
 		<div id="scene-container">
 
