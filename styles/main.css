@@ -13,10 +13,9 @@ h3 {
   width: 100%;
 }
 
-.collapse {
-  position: relative;
-  top: 1em;
-  bottom: 1em;
+.content {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .dropdown-menu-left {

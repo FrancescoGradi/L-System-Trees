@@ -50,7 +50,7 @@
 	<body>
 		<div class="gui-container accordion" id="accordionExample">
 
-			<div class="card bg-transparent">
+			<div class="card bg-transparent rounded">
 
 				<div class="card-header">
 					<h3 class="title">Tree Parameters</h3>
@@ -62,19 +62,22 @@
 						<button class="btn btn-outline-light normal-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 							Axioms
 						</button>
-						<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-							<div class="input-group input-group-sm mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Axiom</span>
-								</div>
-								<input id="axiom" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-							</div>
 
-							<div class="input-group input-group-sm mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Iterations</span>
+						<div class="content">
+							<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+								<div class="input-group input-group-sm mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Axiom</span>
+									</div>
+									<input id="axiom" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 								</div>
-								<input id="iterations" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+
+								<div class="input-group input-group-sm mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Iterations</span>
+									</div>
+									<input id="iterations" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+								</div>
 							</div>
 						</div>
 					</div>
@@ -83,26 +86,29 @@
 						<button class="btn btn-outline-light normal-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 							Properties
 						</button>
-						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-							<div class="input-group input-group-sm mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Degrees</span>
-								</div>
-								<input id="degrees" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="25">
-							</div>
 
-							<div class="input-group input-group-sm mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Branch Lenght</span>
+						<div class="content">
+							<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+								<div class="input-group input-group-sm mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Angle</span>
+									</div>
+									<input id="degrees" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="25">
 								</div>
-								<input id="length" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="15">
-							</div>
 
-							<div class="input-group input-group-sm mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Branch Radius</span>
+								<div class="input-group input-group-sm mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Branch Lenght</span>
+									</div>
+									<input id="length" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="15">
 								</div>
-								<input id="radius" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="1">
+
+								<div class="input-group input-group-sm mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Branch Radius</span>
+									</div>
+									<input id="radius" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="1">
+								</div>
 							</div>
 						</div>
 					</div>
