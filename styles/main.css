@@ -9,11 +9,31 @@ h3 {
   height: 100%;
 }
 
+.normal-button {
+  width: 100%;
+}
+
+.collapse {
+  position: relative;
+  top: 1em;
+  bottom: 1em;
+}
+
+.dropdown-menu-left {
+  background-color: black;
+}
+
+.rendering-button {
+  position: relative;
+  float: right;
+  top: 1em;
+}
+
 .gui-container {
   position: absolute;
   background-color: transparent;
   top: 1em;
   right: 1em;
-  width: 14em;
+  width: 16em;
   z-index: 1;
 }
