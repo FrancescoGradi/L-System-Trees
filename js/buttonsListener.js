@@ -1,4 +1,5 @@
 lastTreeId = null;
+var iterations = 0;
 
 $(document).ready(function() {
 
@@ -10,7 +11,11 @@ $(document).ready(function() {
             scene.remove(scene.getObjectByName('lastTree'));
 
         var axiom = document.getElementById("axiom").value;
-        var iterations = document.getElementById("iterations").value;
+        var rule1 = document.getElementById("rule1").value;
+        var rule2 = document.getElementById("rule2").value;
+
+        iterations = document.getElementById("iterations").value;
+
         var angle = document.getElementById("degrees").value;
         var branchLength = document.getElementById("length").value;
         var branchRadius = document.getElementById("radius").value;
@@ -21,7 +26,7 @@ $(document).ready(function() {
         var totalGeometry = new THREE.Geometry();
 
         var rootMesh = new THREE.Mesh(root);
-        rootMesh.position.set(0, 0, 0);
+        rootMesh.position.set(0, -10, 0);
 
         rootMesh.updateMatrix();
 
@@ -37,7 +42,11 @@ $(document).ready(function() {
         scene.add( sphereMesh );
         */
 
-        var topPoint = new THREE.Vector3(0, rootHeight/2, 0);
+        var topPoint = new THREE.Vector3(0, rootHeight/2 - 10, 0);
+
+        topPoint = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, 0, 0);
+        topPoint = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, 0, 0);
+        topPoint = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, 0, 0);
 
         newTopPoint = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, angle, 55);
         newTopPoint2 = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, -angle, 35);

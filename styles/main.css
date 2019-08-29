@@ -36,3 +36,17 @@ h3 {
   width: 16em;
   z-index: 1;
 }
+
+.index {
+  position: absolute;
+  background-color: transparent;
+  bottom: 1em;
+  right: 1em;
+  width: 16em;
+  z-index: 1;
+}
+
+#text-index {
+  color: white;
+  font-size: smaller;
+}
