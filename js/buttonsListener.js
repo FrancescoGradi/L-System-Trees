@@ -18,33 +18,28 @@ $(document).ready(function() {
         var rootHeight = branchLength;
 
         var root = new THREE.CylinderGeometry(branchRadius * 0.9, branchRadius, rootHeight, 9);
-        var singleGeometry = new THREE.Geometry();
+        var totalGeometry = new THREE.Geometry();
 
         var rootMesh = new THREE.Mesh(root);
         rootMesh.position.set(0, 0, 0);
 
         rootMesh.updateMatrix();
-        singleGeometry.merge(rootMesh.geometry, rootMesh.matrix);
+        totalGeometry.merge(rootMesh.geometry, rootMesh.matrix);
 
-        var topPoint = THREE.Vector3(0, 0, rootHeight/2);
+        var topPoint = new THREE.Vector3(0, rootHeight/2, 0);
+        console.log(topPoint.x);
 
-        var newHeight = branchLength * 0.7;
-        x = 0;
-        y = rootHeight/2 + Math.cos(toRadians(angle)) * (newHeight / 2);
-        z = Math.sin(toRadians(angle)) * (newHeight / 2);
+        topPoint = arrangeTree(totalGeometry, iterations, branchLength, branchRadius, topPoint, 0, 0, angle, angle * 3 / 2);
 
-        branchInsert(singleGeometry, x, y, z, angle, branchRadius * 0.85, branchRadius * 0.9,
-            newHeight);
+        console.log(topPoint.x);
+        console.log(topPoint.y);
+        console.log(topPoint.z);
 
-        x = 0;
-        y = rootHeight/2 + Math.cos(toRadians(-angle)) * (newHeight / 2);
-        z = Math.sin(toRadians(-angle)) * (newHeight / 2);
 
-        branchInsert(singleGeometry, x, y, z, -angle, branchRadius * 0.85, branchRadius * 0.9,
-            newHeight);
+        arrangeTree(totalGeometry, 1, branchLength, branchRadius, topPoint, angle, angle * 3 / 2, angle * 3 / 2, -angle);
 
         var material = new THREE.MeshPhongMaterial({color: 0xfbf2e0});
-        var mesh = new THREE.Mesh(singleGeometry, material);
+        var mesh = new THREE.Mesh(totalGeometry, material);
 
         mesh.name = 'lastTree';
         lastTreeId = 'lastTree';

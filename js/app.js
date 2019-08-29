@@ -76,12 +76,27 @@ function loadModels() {
   const onError = ( errorMessage ) => { console.log( errorMessage ); };
 }
 
+function arrangeTree(totalGeometry, iteration, branchLength, branchRadius, topPoint, thetaOld, phiOld, theta, phi) {
 
-function branchInsert(totalGeometry, x, y, z, theta, radiusTop, radiusBottom, height) {
+  x = - Math.sin(toRadians(phi)) * (branchLength / 2);
+  y = Math.cos(toRadians(theta)) * (branchLength / 2) + topPoint.y;
+  z = Math.sin(toRadians(theta)) * (branchLength / 2) + topPoint.z;
+
+  newTopPoint = branchInsert(totalGeometry, x, y, z, thetaOld + theta, phiOld + phi,
+      branchRadius * 0.85, branchRadius * 0.9, branchLength);
+
+  return newTopPoint;
+
+}
+
+
+function branchInsert(totalGeometry, x, y, z, theta, phi, radiusTop, radiusBottom, height) {
 
   var branch = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, 9);
 
   branch.rotateX(toRadians(theta));
+  branch.rotateZ(toRadians(phi));
+
   var branchMesh = new THREE.Mesh(branch);
 
   branchMesh.position.set(x, y, z);
@@ -89,7 +104,13 @@ function branchInsert(totalGeometry, x, y, z, theta, radiusTop, radiusBottom, he
   branchMesh.updateMatrix();
   totalGeometry.merge(branchMesh.geometry, branchMesh.matrix);
 
+  var newTopPoint = new THREE.Vector3(x - Math.cos(toRadians(phi)) * height / 2, y + Math.sin(toRadians(theta)) * height / 2,
+      z - Math.sin(toRadians(theta)) * height / 2);
+
+  return newTopPoint;
+
 }
+
 
 function createRenderer() {
 
