@@ -24,19 +24,27 @@ $(document).ready(function() {
         rootMesh.position.set(0, 0, 0);
 
         rootMesh.updateMatrix();
+
         totalGeometry.merge(rootMesh.geometry, rootMesh.matrix);
 
+        /*
+        var sphere = new THREE.SphereGeometry( 0.2, 32, 32 );
+        var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+        var sphereMesh = new THREE.Mesh(sphere, material);
+
+        sphereMesh.position.set(vector.x, vector.y, vector.z);
+
+        scene.add( sphereMesh );
+        */
+
         var topPoint = new THREE.Vector3(0, rootHeight/2, 0);
-        console.log(topPoint.x);
 
-        topPoint = arrangeTree(totalGeometry, iterations, branchLength, branchRadius, topPoint, 0, 0, angle, angle * 3 / 2);
+        newTopPoint = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, angle, 55);
+        newTopPoint2 = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, -angle, 35);
 
-        console.log(topPoint.x);
-        console.log(topPoint.y);
-        console.log(topPoint.z);
-
-
-        arrangeTree(totalGeometry, 1, branchLength, branchRadius, topPoint, angle, angle * 3 / 2, angle * 3 / 2, -angle);
+        branchInsert(totalGeometry, iterations, branchLength, branchRadius, newTopPoint, angle, angle / 4);
+        branchInsert(totalGeometry, iterations, branchLength, branchRadius, newTopPoint2, -angle, angle / 4);
+        branchInsert(totalGeometry, iterations, branchLength, branchRadius, newTopPoint2, angle, angle / 4);
 
         var material = new THREE.MeshPhongMaterial({color: 0xfbf2e0});
         var mesh = new THREE.Mesh(totalGeometry, material);

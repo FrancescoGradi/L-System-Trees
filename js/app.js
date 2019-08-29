@@ -76,36 +76,36 @@ function loadModels() {
   const onError = ( errorMessage ) => { console.log( errorMessage ); };
 }
 
-function arrangeTree(totalGeometry, iteration, branchLength, branchRadius, topPoint, thetaOld, phiOld, theta, phi) {
 
-  x = - Math.sin(toRadians(phi)) * (branchLength / 2);
-  y = Math.cos(toRadians(theta)) * (branchLength / 2) + topPoint.y;
-  z = Math.sin(toRadians(theta)) * (branchLength / 2) + topPoint.z;
+function branchInsert(totalGeometry, iteration, branchLength, branchRadius, topTargetPoint, theta, phi) {
 
-  newTopPoint = branchInsert(totalGeometry, x, y, z, thetaOld + theta, phiOld + phi,
-      branchRadius * 0.85, branchRadius * 0.9, branchLength);
+  var branch = new THREE.CylinderGeometry(branchRadius * 0.85, branchRadius, branchLength, 9);
 
-  return newTopPoint;
-
-}
-
-
-function branchInsert(totalGeometry, x, y, z, theta, phi, radiusTop, radiusBottom, height) {
-
-  var branch = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, 9);
-
-  branch.rotateX(toRadians(theta));
-  branch.rotateZ(toRadians(phi));
+  // Calcolo il top e il bottom point del cilindro e guardo dove sono dopo la rotazione
+  var newTopPoint = new THREE.Vector3(0, branchLength / 2, 0);
+  var bottomPoint = new THREE.Vector3(0, - branchLength / 2, 0);
 
   var branchMesh = new THREE.Mesh(branch);
 
-  branchMesh.position.set(x, y, z);
+  // Eseguo la rotazione
+  branchMesh.rotateX(toRadians(theta));
+  branchMesh.rotateZ(toRadians(phi));
 
   branchMesh.updateMatrix();
-  totalGeometry.merge(branchMesh.geometry, branchMesh.matrix);
 
-  var newTopPoint = new THREE.Vector3(x - Math.cos(toRadians(phi)) * height / 2, y + Math.sin(toRadians(theta)) * height / 2,
-      z - Math.sin(toRadians(theta)) * height / 2);
+  // Calcolo i nuovi punti ruotati
+  newTopPoint.applyEuler(branchMesh.rotation);
+  bottomPoint.applyEuler(branchMesh.rotation);
+
+  // Eseguo una traslazione per allineare il bottom al top target in entrata, salvo il nuovo topPoint
+  newTopPoint.x = newTopPoint.x + topTargetPoint.x - bottomPoint.x;
+  newTopPoint.y = newTopPoint.y + topTargetPoint.y - bottomPoint.y;
+  newTopPoint.z = newTopPoint.z + topTargetPoint.z - bottomPoint.z;
+
+  branchMesh.position.set(topTargetPoint.x - bottomPoint.x, topTargetPoint.y - bottomPoint.y, topTargetPoint.z - bottomPoint.z);
+  branchMesh.updateMatrix();
+
+  totalGeometry.merge(branchMesh.geometry, branchMesh.matrix);
 
   return newTopPoint;
 
