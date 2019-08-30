@@ -79,7 +79,7 @@ function loadModels() {
 
 function branchInsert(totalGeometry, iteration, branchLength, branchRadius, topTargetPoint, theta, phi) {
 
-  var branch = new THREE.CylinderGeometry(branchRadius * 0.85, branchRadius, branchLength, 9);
+  var branch = new THREE.CylinderGeometry(branchRadius * 0.95, branchRadius, branchLength, 9);
 
   // Calcolo il top e il bottom point del cilindro e guardo dove sono dopo la rotazione
   var newTopPoint = new THREE.Vector3(0, branchLength / 2, 0);
