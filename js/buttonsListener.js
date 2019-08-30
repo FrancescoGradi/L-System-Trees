@@ -1,5 +1,13 @@
 lastTreeId = null;
-var iterations = 0;
+let axiom = "";
+let rule1 = "";
+let rule2 = "";
+var angle = 0;
+var branchLength = 5;
+var branchRadius = 0.4;
+var lengthReductionFactor = 0.05;
+var radiusReductionFactor = 0.05;
+
 
 $(document).ready(function() {
 
@@ -10,30 +18,33 @@ $(document).ready(function() {
         if (lastTreeId != null)
             scene.remove(scene.getObjectByName('lastTree'));
 
-        var axiom = document.getElementById("axiom").value;
-        var rule1 = document.getElementById("rule1").value;
-        var rule2 = document.getElementById("rule2").value;
+        axiom = document.getElementById("axiom").value;
+        rule1 = document.getElementById("rule1").value;
+        rule2 = document.getElementById("rule2").value;
+        let iterations = document.getElementById("iterations").value;
 
+        angle = document.getElementById("degrees").value;
+        branchLength = document.getElementById("length").value;
+        branchRadius = document.getElementById("radius").value;
+        lengthReductionFactor = (document.getElementById("lengthReductionFactor").value) / 100;
+        radiusReductionFactor = (document.getElementById("radiusReductionFactor").value) / 100;
 
-        iterations = document.getElementById("iterations").value;
-
-        var angle = document.getElementById("degrees").value;
-        var branchLength = document.getElementById("length").value;
-        var branchRadius = document.getElementById("radius").value;
-
-        var rootHeight = branchLength;
-
+        // Geometria composta dell'albero
         var totalGeometry = new THREE.Geometry();
 
-        var topPoint = new THREE.Vector3(0, rootHeight/2 - 10, 0);
+        // Punto iniziale in questo caso
+        let topPoint = new THREE.Vector3(0, branchLength/2 - 45, 0);
 
-        var j = 0;
-        var rightX = 0;
-        var rightZ = 0;
+        let j = 0;
+        let rightX = 0;
+        let rightY = 0;
+        let rightZ = 0;
 
-        var preXAngle = 0;
-        var preZAngle = 0;
+        let preXAngle = 0;
+        let preYAngle = 0;
+        let preZAngle = 0;
 
+        // Funzione che sbriga l'assioma
         for (let i = 0; i < axiom.length; i++) {
 
             if (axiom.charAt(i) === "+") {
@@ -43,6 +54,16 @@ $(document).ready(function() {
 
             if (axiom.charAt(i) === "-") {
                 rightX -= 1;
+                continue;
+            }
+
+            if (axiom.charAt(i) === "^") {
+                rightY += 1;
+                continue;
+            }
+
+            if (axiom.charAt(i) === "v") {
+                rightY -= 1;
                 continue;
             }
 
@@ -57,14 +78,26 @@ $(document).ready(function() {
             }
 
             if (axiom.charAt(i) === "f") {
-                topPoint = branchInsert(totalGeometry, iterations, branchLength, branchRadius * (1 - j * 0.05),
-                    topPoint, angle * rightX + preXAngle, angle * rightZ + preZAngle);
+                topPoint = branchInsert(totalGeometry, branchLength * (1 - j * lengthReductionFactor),
+                    branchRadius * (1 - j * radiusReductionFactor), topPoint, angle * rightX + preXAngle,
+                    angle * rightY + preYAngle, angle * rightZ + preZAngle);
                 j += 1;
 
                 preXAngle += angle * rightX;
+                preYAngle += angle * rightY;
                 preZAngle += angle * rightZ;
                 rightX = 0;
+                rightY = 0;
                 rightZ = 0;
+            }
+
+            if (axiom.charAt(i) === "A") {
+                ruleOne(totalGeometry, topPoint, iterations, preXAngle, preYAngle, preZAngle, rightX, rightY, rightZ, j);
+                continue;
+            }
+
+            if (axiom.charAt(i) === "B") {
+                ruleTwo(totalGeometry, topPoint, iterations, preXAngle, preYAngle, preZAngle, rightX, rightY, rightZ, j);
             }
 
         }
@@ -77,18 +110,6 @@ $(document).ready(function() {
         sphereMesh.position.set(vector.x, vector.y, vector.z);
 
         scene.add( sphereMesh );
-
-        topPoint = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, 0, 0);
-        topPoint = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, 0, 0);
-        topPoint = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, 0, 0);
-
-        newTopPoint = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, angle, 55);
-        newTopPoint2 = branchInsert(totalGeometry, iterations, branchLength, branchRadius, topPoint, -angle, 35);
-
-        branchInsert(totalGeometry, iterations, branchLength, branchRadius, newTopPoint, angle, angle / 4);
-        branchInsert(totalGeometry, iterations, branchLength, branchRadius, newTopPoint2, -angle, angle / 4);
-        branchInsert(totalGeometry, iterations, branchLength, branchRadius, newTopPoint2, angle, angle / 4);
-
         */
 
 

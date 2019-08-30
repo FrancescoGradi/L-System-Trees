@@ -14,34 +14,10 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
-		<!--
-
-          Include the main three.js script.
-
-          The global variable THREE will be
-          available for use in any scripts
-          loaded after this one.
-
-        -->
-
     <script src="js/vendor/three/three.js"></script>
 
-    <!--
-
-      Include the OrbitControls script.
-
-      This must be included AFTER the three.js script as it
-      needs to use the global THREE variable
-
-    -->
 
     <script src="js/vendor/three/OrbitControls.js"></script>
-
-		<!--
-
-			Include the GLTFLoader script. This also needs to be loaded after the three.js script
-
-		-->
 
 		<script src="js/vendor/three/GLTFLoader.js"></script>
 
@@ -69,28 +45,31 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text">Axiom</span>
 									</div>
-									<input id="axiom" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+									<input id="axiom" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                                    value="ffBfffA">
 								</div>
 
 								<div class="input-group input-group-sm mb-3">
 									<div class="input-group-prepend">
-										<span class="input-group-text">Rule 1</span>
+										<span class="input-group-text">Rule 1 (A=)</span>
 									</div>
-									<input id="rule1" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+									<input id="rule1" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                                    value="fB++fB<<fvB">
 								</div>
 
 								<div class="input-group input-group-sm mb-3">
 									<div class="input-group-prepend">
-										<span class="input-group-text">Rule 2</span>
+										<span class="input-group-text">Rule 2 (B=)</span>
 									</div>
-									<input id="rule2" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+									<input id="rule2" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                                    value="f<f>B>f--AvA">
 								</div>
 
 								<div class="input-group input-group-sm mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text">Iterations</span>
 									</div>
-									<input id="iterations" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="1" min="0">
+									<input id="iterations" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="6" min="0">
 								</div>
 							</div>
 						</div>
@@ -117,12 +96,27 @@
 									<input id="length" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" min="0" value="5">
 								</div>
 
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Length Reduction Factor</span>
+                                    </div>
+                                    <input id="lengthReductionFactor" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="2" min="0" max="10" step="0.5">
+                                </div>
+
 								<div class="input-group input-group-sm mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text">Branch Radius</span>
 									</div>
 									<input id="radius" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" min="0" value="0.5" step=".05">
 								</div>
+
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Radius Reduction Factor</span>
+                                    </div>
+                                    <input id="radiusReductionFactor" type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="5" min="0" max="10" step="0.5">
+                                </div>
+
 							</div>
 						</div>
 					</div>
@@ -140,25 +134,19 @@
 			<div class="card bg-transparent rounded">
 				<div class="card-body" id="text-index">
 
-					<br> <b>f</b>: create a branch (terminal symbol)
+					<b>f</b>: create a branch (terminal symbol)
 					<br> <b>A, B</b>: production rules
 					<br> <b>+, -</b>: rotate the branch right/left in x-axis
-					<br> <b><, ></b>: rotate the branch in z-axis
+                    <br> <b>^, v</b>: rotate the branch respect y-axis
+                    <br> <b><, ></b>: rotate the branch in z-axis
 
 				</div>
 			</div>
 		</div>
 
-		</div>
-
 		<div id="scene-container">
 
 		</div>
-
-		<!--
-			Finally, include the script that
-			runs your three.js app.
-		-->
 
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
