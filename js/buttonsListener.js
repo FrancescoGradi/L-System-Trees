@@ -112,13 +112,95 @@ $(document).ready(function() {
         scene.add( sphereMesh );
         */
 
+        var texture = new THREE.TextureLoader().load('images/bark-texture-pine-cone.jpg');
 
-        var material = new THREE.MeshPhongMaterial({color: 0xfbf2e0});
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+
+        const timesToRepeatHorizontally = 1;
+        const timesToRepeatVertically = 4;
+        texture.repeat.set(timesToRepeatHorizontally, timesToRepeatVertically);
+
+        texture.center.set(.5, .5);
+        texture.rotation = toRadians(15);
+
+        //var material = new THREE.MeshPhongMaterial({color: 0xfbf2e0});
+
+        var material = new THREE.MeshBasicMaterial({
+            map: texture,
+        });
+
         var mesh = new THREE.Mesh(totalGeometry, material);
 
         mesh.name = 'lastTree';
         lastTreeId = 'lastTree';
+
         scene.add(mesh);
+
+
+        var loader = new THREE.OBJLoader();
+
+        // load a resource
+        loader.load(
+            // resource URL
+            'models/leaf.obj',
+            // called when resource is loaded
+            function ( object ) {
+
+            },
+            // called when loading is in progresses
+            function ( xhr ) {
+
+                console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+            },
+            // called when loading has errors
+            function ( error ) {
+
+                console.log( 'An error happened' );
+
+            }
+        );
+
+        console.log(loader.geometry);
+
+        function loadObj( path, name ){
+
+            var progress = console.log;
+
+            return new Promise(function( resolve, reject ){
+
+                var obj;
+                var mtlLoader = new THREE.MTLLoader();
+
+                mtlLoader.setPath( path );
+                mtlLoader.load( name + ".mtl", function( materials ){
+
+                    materials.preload();
+
+                    var objLoader = new THREE.OBJLoader();
+
+                    objLoader.setMaterials( materials );
+                    objLoader.setPath( path );
+                    objLoader.load( name + ".obj", resolve, progress, reject );
+
+                }, progress, reject );
+
+            });
+
+        }
+
+        // This way you can use as many .then as you want
+
+        var myObjPromise = loadObj( "models/", "leaf" );
+
+        myObjPromise.then(myObj => {
+
+            scene.add( myObj );
+
+            myObj.position.y = 20;
+
+        });
 
     });
 
