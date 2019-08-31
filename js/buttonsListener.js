@@ -5,8 +5,10 @@ let rule2 = "";
 var angle = 0;
 var branchLength = 5;
 var branchRadius = 0.4;
+var initialBranchRadius = 0.4;
 var lengthReductionFactor = 0.05;
 var radiusReductionFactor = 0.05;
+var leafsPositions = [[]];
 
 
 $(document).ready(function() {
@@ -26,6 +28,7 @@ $(document).ready(function() {
         angle = document.getElementById("degrees").value;
         branchLength = document.getElementById("length").value;
         branchRadius = document.getElementById("radius").value;
+        initialBranchRadius = document.getElementById("radius").value;
         lengthReductionFactor = (document.getElementById("lengthReductionFactor").value) / 100;
         radiusReductionFactor = (document.getElementById("radiusReductionFactor").value) / 100;
 
@@ -112,7 +115,7 @@ $(document).ready(function() {
         scene.add( sphereMesh );
         */
 
-        var texture = new THREE.TextureLoader().load('images/bark-texture-pine-cone.jpg');
+        var texture = new THREE.TextureLoader().load('images/bark-2.jpg');
 
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
@@ -135,72 +138,12 @@ $(document).ready(function() {
         mesh.name = 'lastTree';
         lastTreeId = 'lastTree';
 
+        leafCreator();
+
+        //mesh.receiveShadow = true;
+        //mesh.castShadow = true;
+
         scene.add(mesh);
-
-
-        var loader = new THREE.OBJLoader();
-
-        // load a resource
-        loader.load(
-            // resource URL
-            'models/leaf.obj',
-            // called when resource is loaded
-            function ( object ) {
-
-            },
-            // called when loading is in progresses
-            function ( xhr ) {
-
-                console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-            },
-            // called when loading has errors
-            function ( error ) {
-
-                console.log( 'An error happened' );
-
-            }
-        );
-
-        console.log(loader.geometry);
-
-        function loadObj( path, name ){
-
-            var progress = console.log;
-
-            return new Promise(function( resolve, reject ){
-
-                var obj;
-                var mtlLoader = new THREE.MTLLoader();
-
-                mtlLoader.setPath( path );
-                mtlLoader.load( name + ".mtl", function( materials ){
-
-                    materials.preload();
-
-                    var objLoader = new THREE.OBJLoader();
-
-                    objLoader.setMaterials( materials );
-                    objLoader.setPath( path );
-                    objLoader.load( name + ".obj", resolve, progress, reject );
-
-                }, progress, reject );
-
-            });
-
-        }
-
-        // This way you can use as many .then as you want
-
-        var myObjPromise = loadObj( "models/", "leaf" );
-
-        myObjPromise.then(myObj => {
-
-            scene.add( myObj );
-
-            myObj.position.y = 20;
-
-        });
 
     });
 

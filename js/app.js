@@ -104,6 +104,13 @@ function branchInsert(totalGeometry, branchLength, branchRadius, topTargetPoint,
     branchMesh.position.set(topTargetPoint.x - bottomPoint.x, topTargetPoint.y - bottomPoint.y, topTargetPoint.z - bottomPoint.z);
     branchMesh.updateMatrix();
 
+    if ((branchRadius / initialBranchRadius) < 0.6) {
+        let position = [newTopPoint.x, newTopPoint.y, newTopPoint.z, theta + angle, rho + angle, phi + angle];
+        leafsPositions.push(position);
+        position = [newTopPoint.x, newTopPoint.y, newTopPoint.z, theta - angle, rho - angle, phi - angle];
+        leafsPositions.push(position);
+    }
+
     totalGeometry.merge(branchMesh.geometry, branchMesh.matrix);
 
     return newTopPoint;
