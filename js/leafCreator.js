@@ -44,22 +44,34 @@ function leafCreator() {
             }
         });
 
-        scene.add( myObj );
-
-        myObj.rotateY(toRadians(180));
-        myObj.rotateZ(toRadians(-90));
         myObj.scale.x = 0.01;
         myObj.scale.y = 0.01;
         myObj.scale.z = 0.01;
 
+        myObj.position.set(0, 0, 0);
+
+        let bottomPoint = new THREE.Vector3(myObj.position.x + 1.65, myObj.position.y - 1.15, myObj.position.z);
+
+        myObj.rotateY(toRadians(180));
+        myObj.rotateZ(toRadians(-90));
+
+        myObj.updateMatrix();
+
+        bottomPoint.applyEuler(myObj.rotation);
+
         for (let i = 0; i < leafsPositions.length; i++) {
             let newLeaf = myObj.clone();
+            let newBottomPoint = bottomPoint.clone();
 
             newLeaf.rotateX(toRadians(leafsPositions[i][3]));
             newLeaf.rotateY(toRadians(leafsPositions[i][4]));
             newLeaf.rotateZ(toRadians(leafsPositions[i][5]));
 
-            newLeaf.position.set(leafsPositions[i][0], leafsPositions[i][1], leafsPositions[i][2]);
+            newLeaf.updateMatrix();
+            newBottomPoint.applyEuler(newLeaf.rotation);
+
+            newLeaf.position.set(leafsPositions[i][0] - newBottomPoint.x, leafsPositions[i][1] - newBottomPoint.y,
+                leafsPositions[i][2] - newBottomPoint.z);
 
             //newLeaf.castShadow = true;
             //newLeaf.receiveShadow = true;
