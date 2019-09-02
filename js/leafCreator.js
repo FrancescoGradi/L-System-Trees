@@ -33,7 +33,7 @@ function leafCreator() {
 
     myObjPromise.then(myObj => {
 
-        let textureLeaf = new THREE.TextureLoader().load('images/high_res_leaf_texture_by_hhh316.jpg');
+        let textureLeaf = new THREE.TextureLoader().load('images/leaf_texture.jpg');
         textureLeaf.repeat.set(0.7, 0.7);
         textureLeaf.center.set(0.5, 0.5);
         textureLeaf.repeat.set(0.55, 0.55);

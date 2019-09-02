@@ -1,4 +1,3 @@
-// these need to be accessed inside more than one function so we'll declare them first
 let container;
 let camera;
 let controls;
@@ -10,8 +9,15 @@ var ground;
 var raycaster;
 var threshold = 0.1;
 
+var circleMesh = null;
+
 const mixers = [];
 const clock = new THREE.Clock();
+
+javascript:(function(){var script=document.createElement('script');script.onload=function(){
+    var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){
+        stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';
+        document.head.appendChild(script);})()
 
 function init() {
 
@@ -52,7 +58,7 @@ function createCamera() {
 function createControls() {
 
     controls = new THREE.OrbitControls(camera, container);
-
+    controls.maxPolarAngle = toRadians(90);
 }
 
 
@@ -65,10 +71,10 @@ function createLights(array, offset) {
     mainLight.castShadow = true;
 
     mainLight.shadowDarkness = 0.5;
-    mainLight.shadow.mapSize.width = 512;  // default
-    mainLight.shadow.mapSize.height = 512; // default
-    mainLight.shadow.camera.near = 0.5;    // default
-    mainLight.shadow.camera.far = 1000;     // default
+    mainLight.shadow.mapSize.width = 512;
+    mainLight.shadow.mapSize.height = 512;
+    mainLight.shadow.camera.near = 0.5;
+    mainLight.shadow.camera.far = 1000;
 
     scene.add(mainLight, ambientLight);
 
@@ -322,7 +328,7 @@ function createRenderer() {
 
     renderer.physicallyCorrectLights = true;
 
-    //renderer.shadowMap.enabled = true;
+    renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     container.appendChild( renderer.domElement );
@@ -369,15 +375,23 @@ function onMouseDown(e) {
     var intersections = raycaster.intersectObject(ground);
     intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
 
-    console.log(intersection);
+    if (intersection != null && circleMesh === null) {
 
-    var sphere = new THREE.SphereGeometry( 0.2, 32, 32 );
-    var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-    var sphereMesh = new THREE.Mesh(sphere, material);
+        var circle = new THREE.CircleGeometry(branchRadius * 8, 32);
+        var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+        circleMesh = new THREE.Mesh(circle, material);
 
-    sphereMesh.position.copy(intersection.point);
+        circleMesh.rotateX(toRadians(270));
+        circleMesh.position.copy(intersection.point);
 
-    scene.add( sphereMesh );
+        circleMesh.name = 'marker';
+
+        scene.add(circleMesh);
+
+    } else if (intersection != null) {
+        circleMesh.position.copy(intersection.point);
+    }
+
 }
 
 document.addEventListener('mousedown', onMouseDown, false);

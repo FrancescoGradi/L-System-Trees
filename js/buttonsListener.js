@@ -17,9 +17,6 @@ $(document).ready(function() {
 
         e.preventDefault();
 
-        if (lastTreeId != null)
-            scene.remove(scene.getObjectByName('lastTree'));
-
         axiom = document.getElementById("axiom").value;
         rule1 = document.getElementById("rule1").value;
         rule2 = document.getElementById("rule2").value;
@@ -36,7 +33,13 @@ $(document).ready(function() {
         var totalGeometry = new THREE.Geometry();
 
         // Punto iniziale in questo caso
-        let topPoint = new THREE.Vector3(0, - 45, 0);
+        let topPoint = new THREE.Vector3(0, -45, 0);
+
+        let marker = scene.getObjectByName('marker');
+
+        if (marker != null) {
+            topPoint = marker.position;
+        }
 
         let j = 0;
         let rightX = 0;
@@ -132,9 +135,6 @@ $(document).ready(function() {
         });
 
         var mesh = new THREE.Mesh(totalGeometry, material);
-
-        mesh.name = 'lastTree';
-        lastTreeId = 'lastTree';
 
         leafCreator();
 
