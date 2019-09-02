@@ -127,8 +127,6 @@ $(document).ready(function() {
         texture.center.set(.5, .5);
         texture.rotation = toRadians(15);
 
-        //var material = new THREE.MeshPhongMaterial({color: 0xfbf2e0});
-
         var material = new THREE.MeshPhongMaterial({
             map: texture,
         });

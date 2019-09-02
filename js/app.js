@@ -4,6 +4,11 @@ let camera;
 let controls;
 let renderer;
 let scene;
+let mouse;
+
+var ground;
+var raycaster;
+var threshold = 0.1;
 
 const mixers = [];
 const clock = new THREE.Clock();
@@ -21,6 +26,10 @@ function init() {
     loadModels();
     createRenderer();
     createGround();
+
+    mouse = new THREE.Vector2(0, 0);
+    raycaster = new THREE.Raycaster();
+    raycaster.params.Points.threshold = threshold;
 
     renderer.setAnimationLoop( () => {
 
@@ -102,7 +111,7 @@ function createGround() {
 
     groundGeometry.receiveShadow = true;
 
-    let ground = new THREE.Mesh(groundGeometry, groundMaterial);
+    ground = new THREE.Mesh(groundGeometry, groundMaterial);
 
     ground.position.y = - 45;
     ground.rotation.x = - Math.PI / 2;
@@ -313,7 +322,7 @@ function createRenderer() {
 
     renderer.physicallyCorrectLights = true;
 
-    renderer.shadowMap.enabled = true;
+    //renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     container.appendChild( renderer.domElement );
@@ -348,6 +357,30 @@ function onWindowResize() {
 
 }
 
+function onMouseDown(e) {
+
+    event.preventDefault();
+
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+    raycaster.setFromCamera( mouse, camera );
+
+    var intersections = raycaster.intersectObject(ground);
+    intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
+
+    console.log(intersection);
+
+    var sphere = new THREE.SphereGeometry( 0.2, 32, 32 );
+    var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+    var sphereMesh = new THREE.Mesh(sphere, material);
+
+    sphereMesh.position.copy(intersection.point);
+
+    scene.add( sphereMesh );
+}
+
+document.addEventListener('mousedown', onMouseDown, false);
 window.addEventListener( 'resize', onWindowResize );
 
 init();
