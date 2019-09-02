@@ -36,7 +36,7 @@ $(document).ready(function() {
         var totalGeometry = new THREE.Geometry();
 
         // Punto iniziale in questo caso
-        let topPoint = new THREE.Vector3(0, branchLength/2 - 45, 0);
+        let topPoint = new THREE.Vector3(0, - 45, 0);
 
         let j = 0;
         let rightX = 0;
@@ -129,7 +129,7 @@ $(document).ready(function() {
 
         //var material = new THREE.MeshPhongMaterial({color: 0xfbf2e0});
 
-        var material = new THREE.MeshBasicMaterial({
+        var material = new THREE.MeshPhongMaterial({
             map: texture,
         });
 
@@ -140,8 +140,8 @@ $(document).ready(function() {
 
         leafCreator();
 
-        //mesh.receiveShadow = true;
-        //mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        mesh.castShadow = true;
 
         scene.add(mesh);
 

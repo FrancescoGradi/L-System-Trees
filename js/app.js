@@ -20,6 +20,7 @@ function init() {
     createLights();
     loadModels();
     createRenderer();
+    createGround();
 
     renderer.setAnimationLoop( () => {
 
@@ -30,6 +31,7 @@ function init() {
 
 }
 
+
 function createCamera() {
 
     camera = new THREE.PerspectiveCamera( 35, container.clientWidth / container.clientHeight, 1, 1000 );
@@ -37,22 +39,32 @@ function createCamera() {
 
 }
 
+
 function createControls() {
 
-    controls = new THREE.OrbitControls( camera, container );
+    controls = new THREE.OrbitControls(camera, container);
 
 }
+
 
 function createLights(array, offset) {
 
-    const ambientLight = new THREE.HemisphereLight( 0xddeeff, 0x0f0e0d, 5 );
+    let mainLight = new THREE.PointLight(0xeeffee, 200);
+    const ambientLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 0.3);
 
-    const mainLight = new THREE.DirectionalLight( 0xffffff, 5 );
-    mainLight.position.set(10, 10, 10);
+    mainLight.position.set(-20, 60, -20);
+    mainLight.castShadow = true;
 
-    scene.add( ambientLight, mainLight );
+    mainLight.shadowDarkness = 0.5;
+    mainLight.shadow.mapSize.width = 512;  // default
+    mainLight.shadow.mapSize.height = 512; // default
+    mainLight.shadow.camera.near = 0.5;    // default
+    mainLight.shadow.camera.far = 1000;     // default
+
+    scene.add(mainLight, ambientLight);
 
 }
+
 
 function loadModels() {
 
@@ -70,6 +82,37 @@ function loadModels() {
 
     const onError = ( errorMessage ) => { console.log( errorMessage ); };
 }
+
+
+function createGround() {
+
+    let grassTexture = THREE.ImageUtils.loadTexture('images/grass-2.jpeg');
+
+    grassTexture.wrapS = THREE.RepeatWrapping;
+    grassTexture.wrapT = THREE.RepeatWrapping;
+
+    grassTexture.repeat.x = 16;
+    grassTexture.repeat.y = 16;
+
+    let groundMaterial = new THREE.MeshPhongMaterial({map:grassTexture});
+
+    groundMaterial.receiveShadow = true;
+
+    let groundGeometry = new THREE.BoxGeometry(1000, 1000, 0.01);
+
+    groundGeometry.receiveShadow = true;
+
+    let ground = new THREE.Mesh(groundGeometry, groundMaterial);
+
+    ground.position.y = - 45;
+    ground.rotation.x = - Math.PI / 2;
+    ground.receiveShadow = true;
+
+    ground.doubleSided = true;
+    scene.add(ground);
+
+}
+
 
 
 function branchInsert(totalGeometry, branchLength, branchRadius, topTargetPoint, theta, rho, phi) {
@@ -111,7 +154,13 @@ function branchInsert(totalGeometry, branchLength, branchRadius, topTargetPoint,
         leafsPositions.push(position);
     }
 
+    branchMesh.castShadow = true;
+    branchMesh.receiveShadow = true;
+
     totalGeometry.merge(branchMesh.geometry, branchMesh.matrix);
+
+    totalGeometry.castShadow = true;
+    totalGeometry.receiveShadow = true;
 
     return newTopPoint;
 
@@ -263,6 +312,9 @@ function createRenderer() {
     renderer.gammaOutput = true;
 
     renderer.physicallyCorrectLights = true;
+
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     container.appendChild( renderer.domElement );
 

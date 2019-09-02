@@ -41,6 +41,7 @@ function leafCreator() {
         myObj.traverse(function (child) {
             if (child instanceof THREE.Mesh) {
                 child.material.map = textureLeaf;
+                child.castShadow = true;
             }
         });
 
@@ -72,9 +73,6 @@ function leafCreator() {
 
             newLeaf.position.set(leafsPositions[i][0] - newBottomPoint.x, leafsPositions[i][1] - newBottomPoint.y,
                 leafsPositions[i][2] - newBottomPoint.z);
-
-            //newLeaf.castShadow = true;
-            //newLeaf.receiveShadow = true;
 
             scene.add(newLeaf);
         }
