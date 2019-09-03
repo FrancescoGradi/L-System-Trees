@@ -9,6 +9,8 @@ var ground;
 var raycaster;
 var threshold = 0.1;
 
+var worldWidth = 256, worldDepth = 256, worldHalfWidth = worldWidth / 2, worldHalfDepth = worldDepth / 2;
+
 var circleMesh = null;
 
 const mixers = [];
@@ -58,19 +60,18 @@ function createCamera() {
 function createControls() {
 
     controls = new THREE.OrbitControls(camera, container);
-    controls.maxPolarAngle = toRadians(90);
+    //controls.maxPolarAngle = toRadians(90);
 }
 
 
 function createLights(array, offset) {
 
     let mainLight = new THREE.PointLight(0xeeffee, 200);
-    const ambientLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 0.3);
+    const ambientLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 0.9);
 
-    mainLight.position.set(-20, 60, -20);
+    mainLight.position.set(-20, 100, -20);
     mainLight.castShadow = true;
 
-    mainLight.shadowDarkness = 0.5;
     mainLight.shadow.mapSize.width = 512;
     mainLight.shadow.mapSize.height = 512;
     mainLight.shadow.camera.near = 0.5;
@@ -101,7 +102,7 @@ function loadModels() {
 
 function createGround() {
 
-    let grassTexture = THREE.ImageUtils.loadTexture('images/grass-2.jpeg');
+    let grassTexture = new THREE.TextureLoader().load('images/grass-2.jpeg');
 
     grassTexture.wrapS = THREE.RepeatWrapping;
     grassTexture.wrapT = THREE.RepeatWrapping;
@@ -126,8 +127,38 @@ function createGround() {
     ground.doubleSided = true;
     scene.add(ground);
 
-}
+    /*
+    var groundPromise = loadObj( "models/", "terrain" );
 
+    groundPromise.then(myObj => {
+
+        var grassTexture = new THREE.TextureLoader().load('images/grass-2.jpeg');
+
+        //grassTexture.wrapS = THREE.RepeatWrapping;
+        //grassTexture.wrapT = THREE.RepeatWrapping;
+
+        //grassTexture.repeat.x = 16;
+        //grassTexture.repeat.y = 16;
+
+        myObj.traverse(function (child) {
+            if (child instanceof THREE.Mesh) {
+                //child.material.map = grassTexture;
+                child.material.color.setRGB(25,0,0);
+            }
+        });
+
+        myObj.position.y = - 55;
+        myObj.scale.x = 0.06;
+        myObj.scale.y = 0.06;
+        myObj.scale.z = 0.06;
+        myObj.doubleSided = true;
+
+        scene.add(myObj);
+
+    });
+    */
+
+}
 
 
 function branchInsert(totalGeometry, branchLength, branchRadius, topTargetPoint, theta, rho, phi) {
@@ -335,6 +366,7 @@ function createRenderer() {
 
 }
 
+
 function update() {
 
     const delta = clock.getDelta();
@@ -394,7 +426,7 @@ function onMouseDown(e) {
 
 }
 
-document.addEventListener('mousedown', onMouseDown, false);
+document.getElementById("scene-container").addEventListener('mousedown', onMouseDown, false);
 window.addEventListener( 'resize', onWindowResize );
 
 init();

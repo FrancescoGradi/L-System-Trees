@@ -145,4 +145,16 @@ $(document).ready(function() {
 
     });
 
+    const shadowsCheckbox = document.getElementById('shadows');
+
+    shadowsCheckbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            renderer.shadowMap.enabled = true;
+            console.log("Enable");
+        } else {
+            renderer.shadowMap.enabled = false;
+            console.log("Not enable");
+        }
+    });
+
 });

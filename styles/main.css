@@ -46,6 +46,11 @@ h3 {
   z-index: 1;
 }
 
+.custom-checkbox {
+    background-color: transparent;
+    width: 7em;
+}
+
 #text-index {
   color: black;
   font-size: smaller;

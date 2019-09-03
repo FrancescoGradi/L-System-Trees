@@ -6,7 +6,6 @@ function loadObj( path, name ){
 
     return new Promise(function( resolve, reject ){
 
-        var obj;
         var mtlLoader = new THREE.MTLLoader();
 
         mtlLoader.setPath( path );
@@ -28,8 +27,6 @@ function loadObj( path, name ){
 
 function leafCreator() {
     var myObjPromise = loadObj( "models/", "leaf" );
-
-    var leaf = null;
 
     myObjPromise.then(myObj => {
 
