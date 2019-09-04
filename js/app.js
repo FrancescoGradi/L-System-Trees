@@ -60,7 +60,7 @@ function createCamera() {
 function createControls() {
 
     controls = new THREE.OrbitControls(camera, container);
-    //controls.maxPolarAngle = toRadians(90);
+    controls.maxPolarAngle = toRadians(90);
 }
 
 
@@ -128,36 +128,55 @@ function createGround() {
     scene.add(ground);
 
     /*
-    var groundPromise = loadObj( "models/", "terrain" );
+    var loader = new THREE.OBJLoader();
 
-    groundPromise.then(myObj => {
+    loader.load(
+        'models/terrain.obj',
+        function ( object ) {
+            var grassTexture = new THREE.TextureLoader().load('images/grass-2.jpeg');
 
-        var grassTexture = new THREE.TextureLoader().load('images/grass-2.jpeg');
+            grassTexture.wrapS = THREE.RepeatWrapping;
+            grassTexture.wrapT = THREE.RepeatWrapping;
 
-        //grassTexture.wrapS = THREE.RepeatWrapping;
-        //grassTexture.wrapT = THREE.RepeatWrapping;
+            grassTexture.repeat.x = 16;
+            grassTexture.repeat.y = 16;
 
-        //grassTexture.repeat.x = 16;
-        //grassTexture.repeat.y = 16;
+            object.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.material.side = THREE.DoubleSide;
+                    child.material.map = grassTexture;
+                    child.receiveShadow = true;
+                    //child.material.color.setRGB(25, 0 ,0);
+                }
+            });
 
-        myObj.traverse(function (child) {
-            if (child instanceof THREE.Mesh) {
-                //child.material.map = grassTexture;
-                child.material.color.setRGB(25,0,0);
-            }
-        });
+            object.position.y = -55;
+            object.scale.x = 0.05;
+            object.scale.y = 0.05;
+            object.scale.z = 0.05;
+            object.rotation.x = + Math.PI / 2;
 
-        myObj.position.y = - 55;
-        myObj.scale.x = 0.06;
-        myObj.scale.y = 0.06;
-        myObj.scale.z = 0.06;
-        myObj.doubleSided = true;
+            object.doubleSided = true;
 
-        scene.add(myObj);
+            ground.add(object);
 
-    });
+
+        },
+        // called when loading is in progresses
+        function ( xhr ) {
+
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+        },
+        // called when loading has errors
+        function ( error ) {
+
+            console.log( 'An error happened' );
+
+        }
+    );
+
     */
-
 }
 
 

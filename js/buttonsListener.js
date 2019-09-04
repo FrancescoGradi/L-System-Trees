@@ -39,6 +39,8 @@ $(document).ready(function() {
 
         if (marker != null) {
             topPoint = marker.position;
+            scene.remove(scene.getObjectByName('marker'));
+            circleMesh = null;
         }
 
         let j = 0;
@@ -136,7 +138,9 @@ $(document).ready(function() {
 
         var mesh = new THREE.Mesh(totalGeometry, material);
 
-        leafCreator();
+        //leafCreator();
+
+        liteLeafCreator();
 
         mesh.receiveShadow = true;
         mesh.castShadow = true;
