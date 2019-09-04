@@ -96,13 +96,15 @@ function liteLeafCreator() {
 
     let geometry = new THREE.ShapeGeometry(leafShape);
 
-    let material = new THREE.MeshPhongMaterial({color:0x22dd11});
+    let material = new THREE.MeshPhongMaterial({color:leafColor});
 
     let leaf = new THREE.Geometry();
     leaf.merge(geometry);
 
-    var mesh_arr=new Array();
-    for(i=0.05; i < 0.55 ;i+=0.01) {
+    leaf.matrixAutoUpdate  = false;
+
+    var mesh_arr = new Array();
+    for(i = 0.05; i < 0.55 ; i += 0.01) {
         mesh_arr[i] = geometry.clone();
         mesh_arr[i].translate(0, 0, i);
         leaf.merge( mesh_arr[i] );
@@ -121,16 +123,18 @@ function liteLeafCreator() {
     let leafTotal = new THREE.Mesh(leafTotalGeometry, material);
 
     leafTotal.material.side = THREE.DoubleSide;
-    leafTotal.material.castShadow = true;
+    leafTotal.castShadow = true;
+    leafTotal.receiveShadow = true;
 
     leafTotal.scale.x = 0.05;
     leafTotal.scale.y = 0.05;
     leafTotal.scale.z = 0.05;
 
-    let bottomPoint = new THREE.Vector3(leafTotal.position.x, leafTotal.position.y - 0.75, leafTotal.position.z)
+    let bottomPoint = new THREE.Vector3(leafTotal.position.x, leafTotal.position.y - 0.75, leafTotal.position.z);
 
     for (let i = 0; i < leafsPositions.length; i++) {
         let newLeaf = leafTotal.clone();
+        newLeaf.autoUpdate = false;
         let newBottomPoint = bottomPoint.clone();
 
         newLeaf.rotateX(toRadians(leafsPositions[i][3]));
@@ -145,8 +149,6 @@ function liteLeafCreator() {
 
         scene.add(newLeaf);
     }
-
-    leafsPositions = [[]];
 
 }
 

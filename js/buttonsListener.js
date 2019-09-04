@@ -9,6 +9,7 @@ var initialBranchRadius = 0.4;
 var lengthReductionFactor = 0.05;
 var radiusReductionFactor = 0.05;
 var leafsPositions = [[]];
+var leafColor = 0x22dd11;
 
 
 $(document).ready(function() {
@@ -28,6 +29,9 @@ $(document).ready(function() {
         initialBranchRadius = document.getElementById("radius").value;
         lengthReductionFactor = (document.getElementById("lengthReductionFactor").value) / 100;
         radiusReductionFactor = (document.getElementById("radiusReductionFactor").value) / 100;
+
+        let season = document.getElementById('season').value;
+        seasonChanger(season);
 
         // Geometria composta dell'albero
         var totalGeometry = new THREE.Geometry();
@@ -110,16 +114,6 @@ $(document).ready(function() {
 
         }
 
-        /*
-        var sphere = new THREE.SphereGeometry( 0.2, 32, 32 );
-        var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-        var sphereMesh = new THREE.Mesh(sphere, material);
-
-        sphereMesh.position.set(vector.x, vector.y, vector.z);
-
-        scene.add( sphereMesh );
-        */
-
         var texture = new THREE.TextureLoader().load('images/bark-2.jpg');
 
         texture.wrapS = THREE.RepeatWrapping;
@@ -138,27 +132,17 @@ $(document).ready(function() {
 
         var mesh = new THREE.Mesh(totalGeometry, material);
 
-        //leafCreator();
-
-        liteLeafCreator();
+        if (season !== "1") {
+            liteLeafCreator();
+        }
 
         mesh.receiveShadow = true;
         mesh.castShadow = true;
 
+        leafsPositions = [[]];
+
         scene.add(mesh);
 
-    });
-
-    const shadowsCheckbox = document.getElementById('shadows');
-
-    shadowsCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            renderer.shadowMap.enabled = true;
-            console.log("Enable");
-        } else {
-            renderer.shadowMap.enabled = false;
-            console.log("Not enable");
-        }
     });
 
 });

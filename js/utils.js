@@ -24,3 +24,41 @@ function rotateAboutPoint(obj, point, axis, theta, pointIsWorld){
 
     obj.rotateOnAxis(axis, theta); // rotate the OBJECT
 }
+
+
+function seasonChanger(actualSeason) {
+
+    switch (actualSeason) {
+
+        // inverno
+        case "1":
+            break;
+
+        // primavera
+        case "2":
+            leafColor = 0xF99584;
+            break;
+
+        // estate
+        case "3":
+            leafColor = 0x16691c;
+            break;
+
+        // autunno
+        case "4":
+            leafColor = 0xe62604;
+            break;
+    }
+
+}
+
+
+/*
+        var sphere = new THREE.SphereGeometry( 0.2, 32, 32 );
+        var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+        var sphereMesh = new THREE.Mesh(sphere, material);
+
+        sphereMesh.position.set(vector.x, vector.y, vector.z);
+
+        scene.add( sphereMesh );
+        */

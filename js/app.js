@@ -66,16 +66,19 @@ function createControls() {
 
 function createLights(array, offset) {
 
-    let mainLight = new THREE.PointLight(0xeeffee, 200);
+    let mainLight = new THREE.PointLight(0xffffff, 200);
     const ambientLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 0.9);
 
-    mainLight.position.set(-20, 100, -20);
+    mainLight.position.set(-20, 50, -20);
     mainLight.castShadow = true;
 
     mainLight.shadow.mapSize.width = 512;
     mainLight.shadow.mapSize.height = 512;
     mainLight.shadow.camera.near = 0.5;
     mainLight.shadow.camera.far = 1000;
+
+    mainLight.name = "mainLight";
+    ambientLight.name = "ambientLight";
 
     scene.add(mainLight, ambientLight);
 
@@ -192,6 +195,8 @@ function branchInsert(totalGeometry, branchLength, branchRadius, topTargetPoint,
     var bottomPoint = new THREE.Vector3(0, - branchLength / 2, 0);
 
     var branchMesh = new THREE.Mesh(branch);
+
+    branchMesh.autoUpdate = false;
 
     // Eseguo la rotazione
     branchMesh.rotateX(toRadians(theta));
