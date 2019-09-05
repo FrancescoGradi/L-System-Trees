@@ -132,8 +132,10 @@ $(document).ready(function() {
 
         var mesh = new THREE.Mesh(totalGeometry, material);
 
-        if (season !== "1") {
+        if (season !== "1" && season !== "2") {
             liteLeafCreator();
+        } else if (season === "2") {
+            createFlowers();
         }
 
         mesh.receiveShadow = true;

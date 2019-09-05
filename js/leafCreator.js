@@ -152,6 +152,97 @@ function liteLeafCreator() {
 
 }
 
+function createFlowers() {
+
+    let x = 0, y = 0;
+
+    let flower = new THREE.Geometry();
+    let partialFlower= new THREE.Geometry();
+
+    let heartShape = new THREE.Shape();
+
+    heartShape.moveTo( x + 5, y + 5 );
+    heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
+    heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
+    heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 12.4, x + 5, y + 19 );
+    heartShape.bezierCurveTo( x + 12, y + 12.4, x + 16, y + 11, x + 16, y + 7 );
+    heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
+    heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
+
+    let geometry = new THREE.ShapeGeometry( heartShape );
+    geometry.rotateY(toRadians(-90));
+    partialFlower.merge(geometry);
+
+    let geometry2 = geometry.clone();
+    geometry2.rotateX(toRadians(90));
+    geometry2.translate(0, 24, -13.5);
+    partialFlower.merge(geometry2);
+
+    let geometry3 = geometry.clone();
+    geometry3.rotateX(toRadians(180));
+    geometry3.translate(0, 38, 10);
+    partialFlower.merge(geometry3);
+
+    let geometry4 = geometry.clone();
+    geometry4.rotateX(toRadians(270));
+    geometry4.translate(0, 13.5, 24);
+    partialFlower.merge(geometry4);
+
+    flower.merge(partialFlower);
+
+    let material = new THREE.MeshPhongMaterial( { color: 0xF99584 } );
+    let mesh = new THREE.Mesh(flower, material) ;
+
+    let circleGeometry = new THREE.CircleGeometry(5, 32);
+    let materialSphere = new THREE.MeshPhongMaterial( {color: 0xffffff} );
+    let circle = new THREE.Mesh(circleGeometry, materialSphere);
+
+    circle.rotateY(toRadians(-90));
+    circle.position.set(-0.1, 18.5, 5);
+    circle.material.side = THREE.DoubleSide;
+
+    mesh.add(circle);
+
+    mesh.rotateZ(toRadians(-90));
+
+    let stemGeometry = new THREE.CylinderGeometry(0.3, 0.6, 16, 10);
+    let stemMaterial = new THREE.MeshPhongMaterial( {color:  0xbfdc09});
+    let stemMesh = new THREE.Mesh(stemGeometry, stemMaterial);
+    stemMesh.rotateZ(toRadians(90));
+    stemMesh.position.set(8, 18, 5);
+
+    mesh.add(stemMesh);
+
+    mesh.scale.x = 0.04;
+    mesh.scale.y = 0.04;
+    mesh.scale.z = 0.04;
+
+    mesh.material.side = THREE.DoubleSide;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    let bottomPoint = new THREE.Vector3(mesh.position.x + 0.72, mesh.position.y - 0.65, mesh.position.z + 0.2);
+
+    for (let i = 0; i < leafsPositions.length; i++) {
+        let newFlower = mesh.clone();
+        newFlower.autoUpdate = false;
+        let newBottomPoint = bottomPoint.clone();
+
+        newFlower.rotateX(toRadians(leafsPositions[i][3]));
+        newFlower.rotateY(toRadians(leafsPositions[i][4]));
+        newFlower.rotateZ(toRadians(leafsPositions[i][5]));
+
+        newFlower.updateMatrix();
+        newBottomPoint.applyEuler(newFlower.rotation);
+
+        newFlower.position.set(leafsPositions[i][0] - newBottomPoint.x, leafsPositions[i][1] - newBottomPoint.y,
+            leafsPositions[i][2] - newBottomPoint.z);
+
+        scene.add(newFlower);
+    }
+
+}
+
 
 
 

@@ -61,4 +61,4 @@ function seasonChanger(actualSeason) {
         sphereMesh.position.set(vector.x, vector.y, vector.z);
 
         scene.add( sphereMesh );
-        */
+*/
