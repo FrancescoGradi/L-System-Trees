@@ -55,8 +55,6 @@ function leafCreator() {
 
         myObj.updateMatrix();
 
-        //scene.add(myObj);
-
         bottomPoint.applyEuler(myObj.rotation);
 
         for (let i = 0; i < leafsPositions.length; i++) {
@@ -124,7 +122,6 @@ function liteLeafCreator() {
 
     leafTotal.material.side = THREE.DoubleSide;
     leafTotal.castShadow = true;
-    leafTotal.receiveShadow = true;
 
     leafTotal.scale.x = 0.05;
     leafTotal.scale.y = 0.05;
@@ -190,11 +187,11 @@ function createFlowers() {
 
     flower.merge(partialFlower);
 
-    let material = new THREE.MeshPhongMaterial( { color: 0xF99584 } );
+    let material = new THREE.MeshPhongMaterial( {color: 0xffcccc} );
     let mesh = new THREE.Mesh(flower, material) ;
 
     let circleGeometry = new THREE.CircleGeometry(5, 32);
-    let materialSphere = new THREE.MeshPhongMaterial( {color: 0xffffff} );
+    let materialSphere = new THREE.MeshPhongMaterial( {color: 0xF99584} );
     let circle = new THREE.Mesh(circleGeometry, materialSphere);
 
     circle.rotateY(toRadians(-90));
@@ -205,11 +202,11 @@ function createFlowers() {
 
     mesh.rotateZ(toRadians(-90));
 
-    let stemGeometry = new THREE.CylinderGeometry(0.3, 0.6, 16, 10);
+    let stemGeometry = new THREE.CylinderGeometry(0.3, 0.6, 8, 10);
     let stemMaterial = new THREE.MeshPhongMaterial( {color:  0xbfdc09});
     let stemMesh = new THREE.Mesh(stemGeometry, stemMaterial);
     stemMesh.rotateZ(toRadians(90));
-    stemMesh.position.set(8, 18, 5);
+    stemMesh.position.set(4, 18, 5);
 
     mesh.add(stemMesh);
 
@@ -219,9 +216,9 @@ function createFlowers() {
 
     mesh.material.side = THREE.DoubleSide;
     mesh.castShadow = true;
-    mesh.receiveShadow = true;
+    mesh.position.set(0, 0, 0);
 
-    let bottomPoint = new THREE.Vector3(mesh.position.x + 0.72, mesh.position.y - 0.65, mesh.position.z + 0.2);
+    let bottomPoint = new THREE.Vector3(mesh.position.x + 0.72, mesh.position.y - 0.25, mesh.position.z + 0.2);
 
     for (let i = 0; i < leafsPositions.length; i++) {
         let newFlower = mesh.clone();
