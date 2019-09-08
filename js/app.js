@@ -66,7 +66,7 @@ function createControls() {
 
 function createLights(array, offset) {
 
-    let mainLight = new THREE.PointLight(0xffffff, 200);
+    let mainLight = new THREE.PointLight(0xffffff, 350);
     const ambientLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 0.9);
 
     mainLight.position.set(-20, 50, -20);
@@ -130,56 +130,6 @@ function createGround() {
     ground.doubleSided = true;
     scene.add(ground);
 
-    /*
-    var loader = new THREE.OBJLoader();
-
-    loader.load(
-        'models/terrain.obj',
-        function ( object ) {
-            var grassTexture = new THREE.TextureLoader().load('images/grass-2.jpeg');
-
-            grassTexture.wrapS = THREE.RepeatWrapping;
-            grassTexture.wrapT = THREE.RepeatWrapping;
-
-            grassTexture.repeat.x = 16;
-            grassTexture.repeat.y = 16;
-
-            object.traverse(function (child) {
-                if (child instanceof THREE.Mesh) {
-                    child.material.side = THREE.DoubleSide;
-                    child.material.map = grassTexture;
-                    child.receiveShadow = true;
-                    //child.material.color.setRGB(25, 0 ,0);
-                }
-            });
-
-            object.position.y = -55;
-            object.scale.x = 0.05;
-            object.scale.y = 0.05;
-            object.scale.z = 0.05;
-            object.rotation.x = + Math.PI / 2;
-
-            object.doubleSided = true;
-
-            ground.add(object);
-
-
-        },
-        // called when loading is in progresses
-        function ( xhr ) {
-
-            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-        },
-        // called when loading has errors
-        function ( error ) {
-
-            console.log( 'An error happened' );
-
-        }
-    );
-
-    */
 }
 
 
