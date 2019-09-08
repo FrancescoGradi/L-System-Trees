@@ -147,4 +147,91 @@ $(document).ready(function() {
 
     });
 
+    const presets = document.getElementById('presets');
+
+    presets.addEventListener('change', (event) => {
+
+        let axiomP = document.getElementById("axiom");
+        let rule1P = document.getElementById("rule1");
+        let rule2P = document.getElementById("rule2");
+        let iterationsP = document.getElementById("iterations");
+
+        let angleP = document.getElementById("degrees");
+        let branchLengthP = document.getElementById("length");
+        let branchRadiusP = document.getElementById("radius");
+        let initialBranchRadiusP = document.getElementById("radius");
+        let lengthReductionFactorP = document.getElementById("lengthReductionFactor");
+        let radiusReductionFactorP = document.getElementById("radiusReductionFactor");
+
+        let seasonP = document.getElementById('season');
+
+        switch (event.target.value) {
+
+            case "1":
+                axiomP.value = "ffBAf>A";
+                rule1P.value = "^fB++fB<<fvB";
+                rule2P.value = "f<f>B>f--AvA";
+                iterationsP.value = "5";
+
+                angleP.value = "30";
+                branchLengthP.value = "5";
+                lengthReductionFactorP.value = "4.5";
+                branchRadiusP.value = "0.55";
+                radiusReductionFactorP.value = "5";
+
+                seasonP.value = "4";
+
+                break;
+
+            case "2":
+                axiomP.value = "fv<A^>A-A+A^A>A";
+                rule1P.value = "f+Af>f<f-B^^A";
+                rule2P.value = "f+Bf+f-f<<A-AvvB";
+                iterationsP.value = "5";
+
+                angleP.value = "20";
+                branchLengthP.value = "4";
+                lengthReductionFactorP.value = "2";
+                branchRadiusP.value = "0.45";
+                radiusReductionFactorP.value = "9";
+
+                seasonP.value = "3";
+
+                break;
+
+            case "3":
+                axiomP.value = "ff---A++B<<A>>++B";
+                rule1P.value = "^^fvv++f--B^^fA";
+                rule2P.value = "f--A++++A";
+                iterationsP.value = "5";
+
+                angleP.value = "15";
+                branchLengthP.value = "5";
+                lengthReductionFactorP.value = "3";
+                branchRadiusP.value = "0.75";
+                radiusReductionFactorP.value = "8.5";
+
+                seasonP.value = "1";
+
+                break;
+
+            case "4":
+                axiomP.value = "f--f++A++B----A";
+                rule1P.value = "^^fv++<f-->Bf<^^f<B";
+                rule2P.value = "f-->Af++++fA<A";
+                iterationsP.value = "5";
+
+                angleP.value = "15";
+                branchLengthP.value = "5";
+                lengthReductionFactorP.value = "3";
+                branchRadiusP.value = "0.9";
+                radiusReductionFactorP.value = "7";
+
+                seasonP.value = "2";
+
+                break;
+
+        }
+    });
+
 });
