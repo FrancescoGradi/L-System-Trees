@@ -231,6 +231,22 @@ $(document).ready(function() {
 
                 break;
 
+            case "5":
+                axiomP.value = "fvvA^^^^Avv++A----A++>>A<<<<A";
+                rule1P.value = "f++B----B++vvB^^^^Bvv>>B<<B";
+                rule2P.value = "f++f----fA>>A<<<<f^^AvvvvfA";
+                iterationsP.value = "4";
+
+                angleP.value = "22";
+                branchLengthP.value = "3";
+                lengthReductionFactorP.value = "0.5";
+                branchRadiusP.value = "0.3";
+                radiusReductionFactorP.value = "8.5";
+
+                seasonP.value = "3";
+
+                break;
+
         }
     });
 
