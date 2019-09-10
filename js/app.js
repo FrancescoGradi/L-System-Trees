@@ -105,7 +105,7 @@ function loadModels() {
 
 function createGround() {
 
-    let grassTexture = new THREE.TextureLoader().load('images/grass-2.jpeg');
+    let grassTexture = new THREE.TextureLoader().load('images/grass.jpeg');
 
     grassTexture.wrapS = THREE.RepeatWrapping;
     grassTexture.wrapT = THREE.RepeatWrapping;

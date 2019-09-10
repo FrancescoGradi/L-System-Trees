@@ -10,6 +10,7 @@ var lengthReductionFactor = 0.05;
 var radiusReductionFactor = 0.05;
 var leafsPositions = [[]];
 var leafColor = 0x22dd11;
+var barkTexture = 1;
 
 
 $(document).ready(function() {
@@ -31,6 +32,7 @@ $(document).ready(function() {
         radiusReductionFactor = (document.getElementById("radiusReductionFactor").value) / 100;
 
         let season = document.getElementById('season').value;
+        barkTexture = document.getElementById('bark').value;
         seasonChanger(season);
 
         // Geometria composta dell'albero
@@ -114,7 +116,21 @@ $(document).ready(function() {
 
         }
 
-        var texture = new THREE.TextureLoader().load('images/bark-2.jpg');
+        let texture = new THREE.TextureLoader().load('images/bark-2.jpg');
+
+        switch (barkTexture) {
+            case "1":
+                texture = new THREE.TextureLoader().load('images/bark-1.jpg');
+                break;
+
+            case "2":
+                texture = new THREE.TextureLoader().load('images/bark-2.jpg');
+                break;
+
+            case "3":
+                texture = new THREE.TextureLoader().load('images/bark-3.jpg');
+                break;
+        }
 
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
@@ -164,6 +180,7 @@ $(document).ready(function() {
         let radiusReductionFactorP = document.getElementById("radiusReductionFactor");
 
         let seasonP = document.getElementById('season');
+        let barkTextureP = document.getElementById('bark');
 
         switch (event.target.value) {
 
@@ -180,6 +197,7 @@ $(document).ready(function() {
                 radiusReductionFactorP.value = "5";
 
                 seasonP.value = "4";
+                barkTextureP.value = "3";
 
                 break;
 
@@ -196,6 +214,7 @@ $(document).ready(function() {
                 radiusReductionFactorP.value = "9";
 
                 seasonP.value = "3";
+                barkTextureP.value = "2";
 
                 break;
 
@@ -212,6 +231,7 @@ $(document).ready(function() {
                 radiusReductionFactorP.value = "8.5";
 
                 seasonP.value = "1";
+                barkTextureP.value = "1";
 
                 break;
 
@@ -228,6 +248,7 @@ $(document).ready(function() {
                 radiusReductionFactorP.value = "7";
 
                 seasonP.value = "2";
+                barkTextureP.value = "2";
 
                 break;
 
@@ -244,6 +265,7 @@ $(document).ready(function() {
                 radiusReductionFactorP.value = "8.5";
 
                 seasonP.value = "3";
+                barkTextureP.value = "2";
 
                 break;
 

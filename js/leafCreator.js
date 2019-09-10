@@ -123,9 +123,9 @@ function liteLeafCreator() {
     leafTotal.material.side = THREE.DoubleSide;
     leafTotal.castShadow = true;
 
-    leafTotal.scale.x = 0.05;
-    leafTotal.scale.y = 0.05;
-    leafTotal.scale.z = 0.05;
+    leafTotal.scale.x = 0.08;
+    leafTotal.scale.y = 0.08;
+    leafTotal.scale.z = 0.08;
 
     let bottomPoint = new THREE.Vector3(leafTotal.position.x, leafTotal.position.y - 0.75, leafTotal.position.z);
 
