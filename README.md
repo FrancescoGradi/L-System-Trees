@@ -10,8 +10,8 @@ It was written in Javascript with [Three.js](https://threejs.org) framework, whi
 
 <div>
 <p align="center">
-<img src="demoImages/preset1.png" width=auto height=350px></img>
-<img src="demoImages/menu.png" width=auto height=350px></img>
+<img src="demoImages/preset1.png" width=auto height=400px></img>
+<img src="demoImages/menu.png" width=auto height=400px></img>
 </p>
 <div/>
 
