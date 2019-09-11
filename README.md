@@ -10,7 +10,8 @@ It was written in Javascript with [Three.js](https://threejs.org) framework, whi
 
 <div>
 <p align="center">
-<img src="demoImages/preset1.png" width="40%" height=40%></img>
+<img src="demoImages/preset1.png" width=auto height=350px></img>
+<img src="demoImages/menu.png" width=auto height=350px></img>
 </p>
 <div/>
 
@@ -23,8 +24,6 @@ It is recommended to have dedicated GPU to render more trees. Code tested with F
 
 ### How to make it work
 
-<div>
-<p float="left" width=45%>
 In this demo, you can:
 
 - Choose a **ground point** with mouse click;
@@ -33,13 +32,6 @@ In this demo, you can:
 - Choose **some fancy tree features**, like season and different textures.
 - Render with the button.
 - Eventually, you can use 5 preset different type trees.
-</p>
-
-<p float="right" width=45%>
-<img src="demoImages/menu.png" width=150px height=auto></img>
-</p>
-<div/>
-
 
 <div>
 <p align="center">
