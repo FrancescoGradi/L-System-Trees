@@ -10,7 +10,7 @@ It was written in Javascript with [Three.js](https://threejs.org) framework, whi
 
 <div>
 <p align="center">
-<img src="demoImages/preset1.png" width="auto" height=auto></img>
+<img src="demoImages/preset1.png" width="45%" height=45%></img>
 </p>
 <div/>
 
@@ -34,10 +34,10 @@ In this demo, you can:
 
 <div>
 <p align="center">
-<img src="demoImages/preset2.png" width="25%" height=auto></img>
-<img src="demoImages/preset3.png" width="25%" height=auto></img>
-<img src="demoImages/preset4.png" width="25%" height=auto></img>
-<img src="demoImages/preset5.png" width="25%" height=auto></img>
+<img src="demoImages/preset2.png" width=auto height=200px></img>
+<img src="demoImages/preset3.png" width=auto height=200px></img>
+<img src="demoImages/preset4.png" width=auto height=200px></img>
+<img src="demoImages/preset5.png" width=auto height=200px></img>
 </p>
 <div/>
 
