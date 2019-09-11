@@ -36,7 +36,7 @@ In this demo, you can:
 </p>
 
 <p float="right" width=45%>
-<img src="demoImages/menu.png" width=auto height=auto></img>
+<img src="demoImages/menu.png" width=150px height=auto></img>
 </p>
 <div/>
 
