@@ -24,7 +24,7 @@ It is recommended to have dedicated GPU to render more trees. Code tested with F
 ### How to make it work
 
 <div>
-<p align="left">
+<p float="left" width=45%>
 In this demo, you can:
 
 - Choose a **ground point** with mouse click;
@@ -35,7 +35,7 @@ In this demo, you can:
 - Eventually, you can use 5 preset different type trees.
 </p>
 
-<p align="right">
+<p float="right" width=45%>
 <img src="demoImages/menu.png" width=auto height=auto></img>
 </p>
 <div/>
