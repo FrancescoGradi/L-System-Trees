@@ -23,6 +23,8 @@ It is recommended to have dedicated GPU to render more trees. Code tested with F
 
 ### How to make it work
 
+<div>
+<p align="left">
 In this demo, you can:
 
 - Choose a **ground point** with mouse click;
@@ -31,6 +33,13 @@ In this demo, you can:
 - Choose **some fancy tree features**, like season and different textures.
 - Render with the button.
 - Eventually, you can use 5 preset different type trees.
+</p>
+
+<p align="right">
+<img src="demoImages/menu.png" width=auto height=auto></img>
+</p>
+<div/>
+
 
 <div>
 <p align="center">
